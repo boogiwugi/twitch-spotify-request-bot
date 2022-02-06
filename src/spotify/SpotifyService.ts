@@ -1,14 +1,9 @@
-import 'dotenv/config';
-
 import fs from 'fs';
 
-import env from 'env-smart';
 import SpotifyWebApi from 'spotify-web-api-node';
 
-import { waitForCode, SpotifyAuth } from '@/auth';
-import { envDirectory } from '@/utils';
-
-env.load({ directory: envDirectory });
+import { SpotifyAuth, waitForCode } from '@/auth';
+import { EnvironmentVariables } from '@/config';
 
 const {
   SPOTIFY_CLIENT_ID,
@@ -18,7 +13,7 @@ const {
   ADD_TO_PLAYLIST,
   SPOTIFY_PLAYLIST_ID,
   HOST,
-} = process.env;
+} = EnvironmentVariables;
 
 export default class SpotifyService {
   private spotifyApi: SpotifyWebApi;

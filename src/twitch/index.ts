@@ -1,1 +1,1 @@
-export { default as TwitchService } from './twitch.service';
+export { default as TwitchService } from './TwitchService';

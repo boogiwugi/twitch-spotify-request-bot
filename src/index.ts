@@ -9,10 +9,14 @@ path.join(__dirname, '../.env.types');
 
 const runApp = async () => {
   const spotifyService = new SpotifyService();
-  await spotifyService.authorize(async () => {
-    const twitchService = new TwitchService(spotifyService);
-    await twitchService.connectToChat();
-  });
+  await spotifyService
+    .authorize(async () => {
+      const twitchService = new TwitchService(spotifyService);
+      await twitchService.connectToChat();
+    })
+    .catch((reason) => {
+      console.error(`Unable to authorize with spotify: ${reason}`);
+    });
 };
 
 runApp().then();

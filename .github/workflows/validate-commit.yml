@@ -1,4 +1,4 @@
-name: 'Verify Commit'
+name: 'Validate Commit'
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  verify-commit:
+  validate-commit:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,7 +28,7 @@ jobs:
         run: yarn run format
 
       - name: Test
-        run: yarn test
+        run: yarn run coverage
 
       - name: Build
         run: yarn build

@@ -1,10 +1,8 @@
-import env from 'env-smart';
 import tmi, { ChatUserstate } from 'tmi.js';
 
+import { EnvironmentVariables } from '@/config';
 import { SpotifyService } from '@/spotify';
-import { envDirectory, getTrackIdFromLink, SPOTIFY_LINK_START } from '@/utils';
-
-env.load({ directory: envDirectory });
+import { getTrackIdFromLink, startsWithSpotifyLink } from '@/utils';
 
 const {
   TWITCH_CHANNEL,
@@ -13,7 +11,7 @@ const {
   TWITCH_TOKEN,
   BOT_USERNAME,
   CHAT_FEEDBACK,
-} = process.env;
+} = EnvironmentVariables;
 
 interface TwitchOptions {
   channels: string[];
@@ -93,7 +91,7 @@ export default class TwitchService {
 
       console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
       msg = msg.substring(`${COMMAND_PREFIX} `.length);
-      if (msg.startsWith(SPOTIFY_LINK_START)) {
+      if (startsWithSpotifyLink(msg)) {
         await this.handleSpotifyLink(msg, target);
       } else {
         console.log('Command used but no Spotify link provided');
@@ -104,12 +102,12 @@ export default class TwitchService {
   }
 
   private async handleSpotifyLink(message: string, target: string) {
-    const trackId = getTrackIdFromLink(message);
-    if (trackId) {
+    try {
+      const trackId = getTrackIdFromLink(message);
       await this.spotifyService.addTrack(trackId, (chatMessage) => {
         this.chatFeedback(target, chatMessage);
       });
-    } else {
+    } catch (e) {
       console.error('Unable to parse track ID from message');
       this.chatFeedback(
         target,

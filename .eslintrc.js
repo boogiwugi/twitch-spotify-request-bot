@@ -13,7 +13,7 @@ module.exports = {
   extends: ['eslint:recommended'],
   overrides: [
     {
-      files: ['**/*.ts'],
+      files: ['src/**/*.ts'],
       settings: {
         'import/resolver': {
           typescript: {},
@@ -84,6 +84,15 @@ module.exports = {
             usePrettierrc: true,
           },
         ],
+      },
+    },
+    {
+      files: ['test/**/*.ts'],
+      env: {
+        mocha: true,
+      },
+      parserOptions: {
+        project: './tsconfig.test.json',
       },
     },
   ],

@@ -1,1 +1,1 @@
-export { default as SpotifyService } from './spotify.service';
+export { default as SpotifyService } from './SpotifyService';
