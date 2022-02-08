@@ -2,8 +2,15 @@
   "extends": "@istanbuljs/nyc-config-typescript",
   "all": true,
   "include": ["src"],
-  "branches": 80,
-  "lines": 80,
-  "functions": 80,
-  "statements": 80
+  "exclude": [
+    "**/*/index.ts",
+    "**/*/*.d.ts",
+    "src/utils/Logger.ts",
+    "src/auth/SpotifyAuth.ts",
+    "src/config/Config.ts"
+  ],
+  "branches": 100,
+  "lines": 100,
+  "functions": 100,
+  "statements": 100
 }

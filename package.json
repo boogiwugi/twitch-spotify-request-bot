@@ -13,9 +13,9 @@
     "start": "node dist/index.js",
     "dev": "yarn run build && yarn start",
     "start:dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "lint": "eslint -c .eslintrc.js ./src",
+    "lint": "eslint .",
     "lint:fix": "yarn run lint --fix",
-    "format": "prettier -c .prettierrc.js .",
+    "format": "prettier -c .",
     "format:fix": "yarn run format --write",
     "lint:staged": "lint-staged --allow-empty",
     "husky:prepare": "husky install"
