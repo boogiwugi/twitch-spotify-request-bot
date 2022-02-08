@@ -1,8 +1,10 @@
 import { expect } from 'chai';
-import { getTrackIdFromLink, startsWithSpotifyLink } from '@/utils';
+import { MessageUtils } from '@/utils';
 
-suite('getTrackIdFromLink', async () => {
-  test('should return track ID when a valid link without query params is passed in', async () => {
+const { getTrackIdFromLink, startsWithSpotifyLink } = MessageUtils;
+
+describe('getTrackIdFromLink', async () => {
+  it('should return track ID when a valid link without query params is passed in', async () => {
     const validSpotifyLink =
       'https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT';
 
@@ -11,7 +13,7 @@ suite('getTrackIdFromLink', async () => {
     expect(result).to.equal('4cOdK2wGLETKBW3PvgPWqT');
   });
 
-  test('should return track ID when a valid link with query params is passed in', async () => {
+  it('should return track ID when a valid link with query params is passed in', async () => {
     const validSpotifyLink =
       'https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT?si=e507b989ec794332';
 
@@ -20,7 +22,7 @@ suite('getTrackIdFromLink', async () => {
     expect(result).to.equal('4cOdK2wGLETKBW3PvgPWqT');
   });
 
-  test('should throw error when an invalid link is passed in', async () => {
+  it('should throw error when an invalid link is passed in', async () => {
     const invalidSpotifyLink = 'https://open.spotify.com/track/';
 
     expect(() => getTrackIdFromLink(invalidSpotifyLink)).to.throw(
@@ -29,8 +31,8 @@ suite('getTrackIdFromLink', async () => {
   });
 });
 
-suite('startsWithSpotifyLink', async () => {
-  test('should return true when message starts with a Spotify link', async () => {
+describe('startsWithSpotifyLink', async () => {
+  it('should return true when message starts with a Spotify link', async () => {
     expect(
       startsWithSpotifyLink(
         'https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT?si=e507b989ec794332'
@@ -38,7 +40,7 @@ suite('startsWithSpotifyLink', async () => {
     ).to.be.true;
   });
 
-  test('should return false when message does not start with a Spotify link', async () => {
+  it('should return false when message does not start with a Spotify link', async () => {
     expect(startsWithSpotifyLink('https://www.google.com')).to.be.false;
   });
 });

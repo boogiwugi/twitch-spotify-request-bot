@@ -42,7 +42,12 @@ module.exports = {
         es6: true,
       },
       rules: {
-        'no-restricted-imports': ['error'],
+        'no-restricted-imports': [
+          'error',
+          {
+            patterns: ['@/utils/*/*'],
+          },
+        ],
         'linebreak-style': ['error', 'unix'],
         'import/order': [
           'error',

@@ -15,7 +15,13 @@ const {
   HOST,
 } = EnvironmentVariables;
 
-export default class SpotifyService {
+export interface ISpotifyService {
+  authorize: (onAuth: () => void) => void;
+  addTrack: (trackId: string, chatFeedback: (message: string) => void) => void;
+  authorizationUrl: string;
+}
+
+export default class SpotifyService implements ISpotifyService {
   private spotifyApi: SpotifyWebApi;
   private spotifyAuth: SpotifyAuth;
 
@@ -155,7 +161,7 @@ export default class SpotifyService {
     return false;
   }
 
-  public getAuthorizationUrl() {
+  public get authorizationUrl(): string {
     const scopes = [
       'user-modify-playback-state',
       'playlist-read-private',
@@ -167,7 +173,7 @@ export default class SpotifyService {
   }
 
   private async performNewAuthorization(onAuth: () => void) {
-    const authUrl = this.getAuthorizationUrl();
+    const authUrl = this.authorizationUrl;
     console.log(
       'Click or go to the following link and give this app permissions'
     );

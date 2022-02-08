@@ -15,9 +15,7 @@ export const waitForCode = (onCodeReceived: (code: string) => void) => {
   });
 
   app.get('/', (req, res) => {
-    const spotifyService = new SpotifyService();
-    const authURL = spotifyService.getAuthorizationUrl();
-    res.redirect(authURL);
+    res.redirect(new SpotifyService().authorizationUrl);
   });
   app.get('/spotifyAuth', (req, res) => {
     res.send('Authorization received, you can close this window now.');
