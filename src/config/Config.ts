@@ -29,8 +29,8 @@ export interface IEnvironmentVariables {
   SPOTIFY_CLIENT_ID: string;
   SPOTIFY_CLIENT_SECRET: string;
   SPOTIFY_PLAYLIST_ID?: string;
-  TWITCH_TOKEN: string;
-  BOT_USERNAME: string;
+  TWITCH_TOKEN?: string;
+  BOT_USERNAME?: string;
   CHAT_FEEDBACK: boolean;
   ADD_TO_QUEUE: boolean;
   ADD_TO_PLAYLIST: boolean;
@@ -46,8 +46,8 @@ export const EnvironmentVariables: IEnvironmentVariables = {
   SPOTIFY_CLIENT_ID: SPOTIFY_CLIENT_ID as string,
   SPOTIFY_CLIENT_SECRET: SPOTIFY_CLIENT_SECRET as string,
   SPOTIFY_PLAYLIST_ID,
-  TWITCH_TOKEN: TWITCH_TOKEN as string,
-  BOT_USERNAME: BOT_USERNAME as string,
+  TWITCH_TOKEN,
+  BOT_USERNAME,
   CHAT_FEEDBACK: (CHAT_FEEDBACK as unknown) as boolean,
   ADD_TO_QUEUE: (ADD_TO_QUEUE as unknown) as boolean,
   ADD_TO_PLAYLIST: (ADD_TO_PLAYLIST as unknown) as boolean,

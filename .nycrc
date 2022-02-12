@@ -3,6 +3,7 @@
   "all": true,
   "include": ["src"],
   "exclude": [
+    "**/*/*.spec.ts",
     "**/*/index.ts",
     "**/*/*.d.ts",
     "src/utils/Logger.ts",

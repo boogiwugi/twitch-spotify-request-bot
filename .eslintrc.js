@@ -92,12 +92,9 @@ module.exports = {
       },
     },
     {
-      files: ['test/**/*.ts'],
+      files: ['src/**/*.spec.ts'],
       env: {
         mocha: true,
-      },
-      parserOptions: {
-        project: './tsconfig.test.json',
       },
     },
   ],
