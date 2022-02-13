@@ -19,19 +19,20 @@ export interface IMessageProcessor {
   ) => Promise<void>;
 }
 
+export interface Dependencies {
+  spotifyService: ISpotifyService;
+  notifyChat: (target: string, message: string) => Promise<void>;
+}
+
+export type InternalDependencies = typeof DefaultInternalDependencies;
+
 export const MessageProcessor = (
-  {
-    spotifyService,
-    notifyChat,
-  }: {
-    spotifyService: ISpotifyService;
-    notifyChat: (target: string, message: string) => Promise<void>;
-  },
+  { spotifyService, notifyChat }: Dependencies,
   {
     environmentVariables,
     logger,
     messageUtils,
-  }: typeof DefaultInternalDependencies = DefaultInternalDependencies
+  }: InternalDependencies = DefaultInternalDependencies
 ): IMessageProcessor => {
   const { COMMAND_PREFIX, SUBSCRIBERS_ONLY } = environmentVariables;
 
@@ -42,12 +43,14 @@ export const MessageProcessor = (
     self: boolean
   ) => {
     if (self) {
+      logger.trace('Message received from self');
       return;
     }
 
     if (COMMAND_PREFIX && msg.startsWith(COMMAND_PREFIX)) {
       if (SUBSCRIBERS_ONLY) {
         if (!userState.subscriber) {
+          logger.trace('Command received but it was not from a subscriber');
           return;
         }
       }
@@ -61,6 +64,10 @@ export const MessageProcessor = (
         await notifyChat(target, 'Fail (no link): No Spotify link detected');
       }
       logger.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+    } else {
+      logger.trace(
+        'Message received but it did not start with the command prefix'
+      );
     }
   };
 
