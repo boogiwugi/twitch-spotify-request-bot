@@ -23,7 +23,7 @@ describe('TwitchConnector', async () => {
   const environmentVariablesStub = stubObject<IEnvironmentVariables>(
     EnvironmentVariables
   );
-  const logger = sinon.spy(Logger);
+  const loggerStub = stubObject<typeof Logger>(Logger);
   const messageUtilsStub = stubObject(MessageUtils);
 
   const clientStub = stubObject(new Client({}));
@@ -36,7 +36,7 @@ describe('TwitchConnector', async () => {
   const internalDependencies: InternalDependencies = {
     tmi: tmiStub,
     environmentVariables: environmentVariablesStub,
-    logger: logger,
+    logger: loggerStub,
     messageUtils: messageUtilsStub,
     chatInteractor: chatStub,
   };
@@ -58,6 +58,8 @@ describe('TwitchConnector', async () => {
       expect(tmiStub.Client).to.be.calledOnceWithExactly({
         channels: ['ABC123'],
       });
+      expect(clientStub.on).to.be.calledWith('connected');
+      expect(clientStub.on).to.be.calledWith('message');
     });
 
     it('should connect with chat options when chat feedback is enabled', async () => {
@@ -78,6 +80,8 @@ describe('TwitchConnector', async () => {
           password: 'TOKEN',
         },
       });
+      expect(clientStub.on).to.be.calledWith('connected');
+      expect(clientStub.on).to.be.calledWith('message');
     });
 
     it('should error when chat feedback is enabled but no config provided', async () => {
@@ -89,10 +93,11 @@ describe('TwitchConnector', async () => {
         await TwitchConnector(dependencies, internalDependencies);
       } catch (e) {
         expect(tmiStub.Client).to.not.be.called;
-        expect(logger.error).to.be.calledOnceWithExactly(
+        expect(loggerStub.error).to.be.calledOnceWithExactly(
           'Error: Chat feedback enabled but there is no TWITCH_TOKEN or BOT_USERNAME in the config'
         );
       }
+      expect(clientStub.on).to.not.be.called;
     });
 
     it('should error when an error occurs while connecting', async () => {
@@ -108,7 +113,7 @@ describe('TwitchConnector', async () => {
         expect(tmiStub.Client).to.be.calledOnceWithExactly({
           channels: ['ABC123'],
         });
-        expect(logger.error).to.be.calledOnceWithExactly(
+        expect(loggerStub.error).to.be.calledOnceWithExactly(
           'Error connecting to Twitch - Error: unknown error'
         );
       }

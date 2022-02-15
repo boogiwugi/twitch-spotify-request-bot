@@ -20,7 +20,7 @@ describe('MessageProcessor', async () => {
   const environmentVariablesStub = stubObject<IEnvironmentVariables>(
     EnvironmentVariables
   );
-  const loggerStub = sinon.spy(Logger);
+  const loggerStub = stubObject<typeof Logger>(Logger);
   const messageUtilsStub = stubObject(MessageUtils);
 
   const notifyChatStub = sinon.stub();

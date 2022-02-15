@@ -1,5 +1,12 @@
 # Twitch Spotify Request Bot
 
+<!--suppress HtmlDeprecatedAttribute -->
+<p align="center">
+    <a href="https://github.com/badges/shields/graphs/version">
+        <img alt="Version" src="https://img.shields.io/github/package-json/v/MarcDonald/twitch-spotify-request-bot" />
+    </a>
+</p>
+
 ## What is this?
 
 This is a bot that listens to the chat of a given Twitch stream for messages with a Spotify song link in them and then
