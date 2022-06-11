@@ -24,7 +24,7 @@ picked up.
 
 Click here to deploy your bot to heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/MarcDonald/twitch-spotify-request-bot)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/boogiwugi/twitch-spotify-request-bot)
 
 1. Go to the [Spotify developer dashboard](https://developer.spotify.com/dashboard/)
    and create a new application. The app can have whatever name and description you want
